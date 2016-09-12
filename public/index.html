@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>A function is triggered when the user is pressing a key in the input field.</p>
+
+<!-- input id="mytbox" type="text" onkeypress="myKeyFunction()" -->
+
+<input id="mytbox" type="text" value="frozen" onkeypress="myKeyFunction()">
+<button onclick="myFunction()">Enter</button> 
+
+<div id=main> Your results will be here</div>
+<script>
+function myFunction() {
+    var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status === 200) {
+        var data = JSON.parse(this.responseText);
+        console.log(data);
+		main.innerHTML = data.Title + " " + data.Year;
+    }
+};
+var movieTitle = document.getElementById("mytbox").value 
+xhttp.open("GET", "http://www.omdbapi.com/?t=" + movieTitle + "&y=&plot=short&r=json", true);
+xhttp.send();
+}
+
+function myKeyFunction()
+{
+	main.innerHTML = document.getElementById("mytbox").value 
+}
+
+
+
+
+</script>
+
+</body>
+</html>
